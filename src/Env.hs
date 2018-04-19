@@ -1,19 +1,21 @@
 module Env
-    (Env(..),
-     IOThrowsError(..),
+    (IOThrowsError(..),
      liftThrows,
      getVar,
      setVar,
      runIOThrows,
      nullEnv,
+     primitiveBindings,
+     bindVars,
      defineVar) where
 
 import Data.IORef
 import Control.Monad.Error
-import LispError
+-- import LispError
 import LispVal
+import LispLang
 
-type Env = IORef [(String, IORef LispVal)]
+-- type Env = IORef [(String, IORef LispVal)]
 
 type IOThrowsError = ErrorT LispError IO
 
@@ -62,3 +64,7 @@ bindVars envRef bindings = readIORef envRef >>= extendEnv bindings >>= newIORef
            addBinding (var, value) = do ref <- newIORef value
                                         return (var, ref)             
 
+primitiveBindings :: IO Env
+primitiveBindings = 
+  nullEnv >>= (flip bindVars $ map makePrimitiveFunc primitives)
+    where makePrimitiveFunc (var, func) = (var, PrimitiveFunc func)

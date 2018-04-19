@@ -7,7 +7,7 @@ import System.IO
 import Control.Monad
 import System.Environment
 import Evaluate
-import LispError
+-- import LispError
 import LispVal
 import Parser
 import Env
@@ -33,7 +33,8 @@ until_ pred prompt action = do
       else action result >> until_ pred prompt action
 
 runOne :: String -> IO ()
-runOne expr = nullEnv >>= flip evalAndPrint expr
+runOne expr = primitiveBindings >>= flip evalAndPrint expr
 
 runRepl :: IO ()
-runRepl = nullEnv >>= until_ (== "quit") (readPrompt "lisp> ") . evalAndPrint  
+runRepl = 
+  primitiveBindings >>= until_ (== "quit") (readPrompt "lisp> ") . evalAndPrint

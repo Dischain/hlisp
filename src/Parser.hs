@@ -8,7 +8,7 @@ import Control.Monad
 import Control.Monad.Error
 
 import LispVal
-import LispError
+-- import LispError
 
 symbol :: Parser Char
 symbol = oneOf "!#$%&|*+-/:<=>?@^_~"

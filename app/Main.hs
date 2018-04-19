@@ -1,12 +1,9 @@
 module Main where
 
--- import Lib
 import System.Environment
 import Control.Monad
-
 import Parser
 import Evaluate
-import LispError
 import Repl
 
 main :: IO ()

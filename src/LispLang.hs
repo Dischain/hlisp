@@ -10,7 +10,7 @@ import System.Environment
 import Control.Monad
 import Control.Monad.Error
 import LispVal
-import LispError
+-- import LispError
 
 data Unpacker = forall a. Eq a => AnyUnpacker (LispVal -> ThrowsError a)
 
